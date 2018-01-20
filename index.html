@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<input type="text" id="name" name="username" value="">
+	<input type="button" id="btn" value="btn">
+	<ul id="result"></ul>
+	<script>
+
+		// jsonp   跨域
+		
+		// var obj = {
+		// 	type: 'get',
+		// 	url: '',
+		// 	data: {},
+		// 	dataType: 'jsonp',
+		// 	success: function(){
+
+		// 	}
+		// }
+
+		// function ajax(obj){
+
+
+		// }
+		document.querySelector('#btn').onclick = function(){
+			var name = document.querySelector('#name').value;
+			var script = document.createElement('script');
+			script.src = 'https://suggest.taobao.com/sug?q='+name+'&callback=haha';
+			document.querySelector('head').appendChild(script);
+
+			window['haha'] = function(data){
+					
+				var result = data.result;
+
+				var liTag = '';
+				for(var i = 0 ; i < result.length; i++){
+
+					liTag += '<li>'+result[i][0]+'</li>';
+				}
+
+				console.log(liTag);
+
+				document.querySelector('#result').innerHTML = liTag;
+
+			}
+
+		};
+
+	</script>
+</body>
+</html>
